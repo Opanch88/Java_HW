@@ -45,6 +45,8 @@ public class Task {
     }
 
     private static void addContact(Map<String, List<String>> phoneBook, String name, String phoneNumber) {
+        // Если контакт с таким именем уже существует,
+        // добавляем новый телефон к существующему списку
         phoneBook.computeIfAbsent(name, k -> new ArrayList<>()).add(phoneNumber);
     }
 
@@ -105,7 +107,7 @@ public class Task {
                 String[] parts = line.split(":");
                 String name = parts[0];
                 String[] phoneNumbers = parts[1].split(",");
-                phoneBook.put(name, Arrays.asList(phoneNumbers));
+                phoneBook.computeIfAbsent(name, k -> new ArrayList<>()).addAll(Arrays.asList(phoneNumbers));
             }
         } catch (IOException e) {
             System.out.println("Ошибка чтения файла: " + e.getMessage());
